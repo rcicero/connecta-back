@@ -1,0 +1,16 @@
+{
+  "name": "hackathonfebraban",
+  "description": "Server to be used as a hachathon demonstration",
+  "version": "1.0.0",
+  "author": {
+    "name": "many",
+    "email": "marcospf.eng@gmail.com"
+  },
+  "scripts": {
+    "start" : "node main.js" 
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}
