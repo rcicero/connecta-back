@@ -1,0 +1,20 @@
+Description: Connecta Application BackEnd
+
+
+Instalation:
+
+#Install node
+apt-get install nodejs@8.9.2
+
+#Install npm
+apt-get install npm
+
+
+#Run npm
+npm install
+
+
+#start app
+npm start
+
+
