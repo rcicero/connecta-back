@@ -69,7 +69,7 @@ app.get('/api/user/:id/transaction', (req, res) => getAllUserTransaction(res, [r
 
 app.get('/api/user/:id1/transaction/:id2', (req, res) => getUserTransaction(res, [req.params.id1, req.params.id2]))
 
-app.put('/api/user/:id/transaction', (req, res) => updateTransaction(res, [req.body["_id"]], req.body))
+app.put('/api/user/:id/transaction', (req, res) => updateTransaction(res, [req.body["_id"]], req.body["_source"]))
 
 app.get('/api/user/:id/creditcard', (req, res) => getAllCreditCard(res, [req.params.id]))
 
