@@ -39,9 +39,7 @@ function createPutOptions(endpoint, param, data) {
 
 	return {
     uri: 'http://40.114.27.240:9200/' + endpointCustom,
-    body: {
-    	body: data
-    },
+    body: JSON.stringify(data),
     json: true
 	};
 }
@@ -69,11 +67,17 @@ app.get('/api/user/:id/transaction', (req, res) => getAllUserTransaction(res, [r
 
 app.get('/api/user/:id1/transaction/:id2', (req, res) => getUserTransaction(res, [req.params.id1, req.params.id2]))
 
-app.put('/api/user/:id/transaction', (req, res) => updateTransaction(res, [req.body["_id"]], req.body["_source"]))
+app.put('/api/user/:id/transaction', (req, res) => updateTransaction(res, [req.body.transaction["_id"]], req.body.transaction["_source"]))
 
 app.get('/api/user/:id/creditcard', (req, res) => getAllCreditCard(res, [req.params.id]))
 
 app.get('/api/user/:id1/creditcard/:id2', (req, res) => getCreditCard(res, [req.params.id1, req.params.id2]))
+
+app.get('/api/user/:id1/creditcard/:id2/transaction', (req, res) => getCreditCardTransaction(res, [req.params.id1, req.params.id2]))
+
+app.get('/api/user/:id/loan', (req, res) => getLoan(res, [req.params.id]))
+
+app.get('/api/user/:id/investiment', (req, res) => getInvestiment(res, [req.params.id]))
 
 // server requests
 function getUserAccount(res, params) {
@@ -138,10 +142,44 @@ function getCreditCard(res, params) {
     });
 }
 
-function updateTransaction(res, params, data) {
-	rp(createPutOptions("transactions/transaction/", params[0], data))
+function getCreditCardTransaction(res, params) {
+	rp(createGetOptions("cardtransactions/transaction/_search?card_id=%s", params[1]))
     .then(function (promisseResponse) {
+        success_response(res, promisseResponse)
+    })
+    .catch(function (error) {
+      	error_response(res, error)
+    });
+}
+
+function updateTransaction(res, params, data) {
+	console.log(params)
+	console.log(data)
+	rp(createPutOptions("transactions/transaction/%s", params[0], data))
+    .then(function (promisseResponse) {
+    		console.log(promisseResponse)
         success_response(res, "success")
+    })
+    .catch(function (error) {
+    		console.log(error)
+      	error_response(res, error)
+    });
+}
+
+function getLoan(res, params) {
+	rp(createGetOptions("loans/_search", []))
+    .then(function (promisseResponse) {
+        success_response(res, promisseResponse)
+    })
+    .catch(function (error) {
+      	error_response(res, error)
+    });
+}
+
+function getInvestiment(res, params) {
+	rp(createGetOptions("investments/_search", []))
+    .then(function (promisseResponse) {
+        success_response(res, promisseResponse)
     })
     .catch(function (error) {
       	error_response(res, error)
