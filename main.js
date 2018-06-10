@@ -38,8 +38,9 @@ function createPutOptions(endpoint, param, data) {
 	var endpointCustom = parse(endpoint, param)
 
 	return {
+		method: 'PUT',
     uri: 'http://40.114.27.240:9200/' + endpointCustom,
-    body: JSON.stringify(data),
+    body: data,
     json: true
 	};
 }
