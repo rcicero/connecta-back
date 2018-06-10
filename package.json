@@ -7,10 +7,12 @@
     "email": "marcospf.eng@gmail.com"
   },
   "scripts": {
-    "start" : "node main.js" 
+    "start": "node main.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
   }
 }
