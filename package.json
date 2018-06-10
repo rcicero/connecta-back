@@ -7,7 +7,7 @@
     "email": "marcospf.eng@gmail.com"
   },
   "scripts": {
-    "start": "node main.js"
+    "start": "npm install && node main.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",

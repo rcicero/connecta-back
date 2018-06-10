@@ -47,22 +47,21 @@ function createPutOptions(endpoint, param, data) {
 }
 
 // Map endpoints data
-const endpoints = {
-	0: {id: 0, api: 'GET /'},
-	1: {id: 1, api: 'GET api/user/<id>'},
-	2: {id: 2, api: 'GET api/user/<id>/transaction'},
-	3: {id: 3, api: 'GET api/user/<id1>/transaction/<id2>'},
-	4: {id: 4, api: 'PUT api/user/<id>/transaction'},
-	5: {id: 5, api: 'GET api/user/<id>/creditcard'},
-	6: {id: 6, api: 'GET api/user/<id1>/creditcard/<id2>'}
-}
+const endpoints = '<br> GET /' +
+									'<br> GET api/user/:id' +
+									'<br> GET api/user/:id/transaction' +
+									'<br> GET api/user/:id1/transaction/:id2' +
+									'<br> PUT api/user/:id/transaction' +
+									'<br> GET api/user/:id/creditcard' +
+									'<br> GET api/user/:id1/creditcard/:id2'
 
+const list_endpoints = (res, data) => res.send("<pre>" + data + "</pre>")
 const success_response = (res, data) => res.json(getSuccessResponseModel(data))
 const error_response = (res, error) => res.json(getErrorResponseModel(error))
 
 // Routing. E.g.: app.put('/api/name/:id', (req, res) => myfunction(req.params.id, req.body.extras, res))
 
-app.get('/', (req, res) => list_endpoints(res))
+app.get('/', (req, res) => list_endpoints(res, endpoints))
 
 app.get('/api/user/:id', (req, res) => getUserAccount(res, [req.params.id]))
 
