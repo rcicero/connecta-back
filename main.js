@@ -34,6 +34,17 @@ function createGetOptions(endpoint, param) {
 	};
 }
 
+function createPostOptions(endpoint, param, data) {
+    var endpointCustom = parse(endpoint, param)
+    
+    return {
+        method: 'POST',
+    uri: 'http://40.114.27.240:9200/' + endpointCustom,
+    body: data,
+    json: true
+    };
+}
+
 function createPutOptions(endpoint, param, data) {
 	var endpointCustom = parse(endpoint, param)
 
@@ -92,7 +103,10 @@ function getUserAccount(res, params) {
 }
 
 function getAllUserTransaction(res, params) {
-	rp(createGetOptions("transactions/transaction/_search?account=%s", params[0]))
+
+    var data = {query: {term: {account: params[0]}}};
+
+	rp(createPostOptions("transactions/transaction/_search", null, data))
     .then(function (promisseResponse) {
         success_response(res, promisseResponse["hits"]["hits"])
     })
@@ -102,7 +116,10 @@ function getAllUserTransaction(res, params) {
 }
 
 function getUserTransaction(res, params) {
-	rp(createGetOptions("transactions/transaction/_search?account=%s", params[0]))
+
+    var data = {query: {term: {account: params[0]}}};
+
+	rp(createPostOptions("transactions/transaction/_search", null, data))
     .then(function (promisseResponse) {
     		let filteredTransactions = []
     		var transactions = promisseResponse["hits"]["hits"]
@@ -124,7 +141,11 @@ function getUserTransaction(res, params) {
 }
 
 function getAllCreditCard(res, params) {
-	rp(createGetOptions("cards/_search?account=%s", params[0]))
+
+    var data = {query: {term: {account: params[0]}}};
+
+
+	rp(createPostOptions("cards/_search", null, data))
     .then(function (promisseResponse) {
         success_response(res, promisseResponse["hits"]["hits"])
     })
@@ -144,7 +165,10 @@ function getCreditCard(res, params) {
 }
 
 function getCreditCardTransaction(res, params) {
-	rp(createGetOptions("cardtransactions/transaction/_search?card_id=%s", params[1]))
+
+    var data = {query: {term: {card_id: params[1]}}};
+
+	rp(createPostOptions("cardtransactions/transaction/_search", null, data))
     .then(function (promisseResponse) {
         success_response(res, promisseResponse)
     })
